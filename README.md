@@ -1,6 +1,6 @@
-##Rainbow parens for Light Table
+##CSS language plugin for Light Table
 
-A CLJS implementation of Rainbow parens for Light Table.
+The official CSS language plugin for Light Table
 
 ###License
 
