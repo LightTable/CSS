@@ -1,5 +1,5 @@
 {:+ {:app [(:lt.objs.plugins/load-js ["codemirror/css.js" "css_compiled.js"])]
      :editor.css [:lt.plugins.css/on-eval :lt.plugins.css/eval-on-save]
-     :files [(:lt.objs.files/file-types [(:lt.objs.files/file-types [{:name "CSS" :exts [:css] :mime "text/css" :tags [:editor.css]}
-                                                                     {:name "SCSS" :exts [:scss] :mime "text/x-scss" :tags [:editor.scss]}])])]
+     :files [(:lt.objs.files/file-types [{:name "CSS" :exts [:css] :mime "text/css" :tags [:editor.css]}
+                                         {:name "SCSS" :exts [:scss] :mime "text/x-scss" :tags [:editor.scss]}])]
      }}
