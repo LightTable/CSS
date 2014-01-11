@@ -8,18 +8,6 @@
             [lt.util.dom :refer [$ append]])
   (:require-macros [lt.macros :refer [behavior defui]]))
 
-; file    /home/josh/repos/
-; client: /home/josh/
-; delta:  repos/
-
-; file    /home/josh/
-; client: /home/josh/repos/
-; delta:  ../
-
-; file:   /home/josh/project/
-; client: /home/josh/LT/
-; delta:  ../project/
-
 (defn get-prefix
   "Get the longest shared prefix of s1 and s2 and return it."
   ([s1 s2] (get-prefix s1 s2 ""))
