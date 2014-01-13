@@ -80,8 +80,6 @@
                             code (if-not client-path
                                    (:code info)
                                    (preprocess (files/parent file-path) client-path (:code info)))]
-
-                        code
                         (clients/send client
                                       :editor.eval.css
                                       (assoc info :code code)
