@@ -42,11 +42,21 @@
       (process-urls diff-path (rest matches)
                     (string/replace code token (str "url(\"" (files/join diff-path url) "\")"))))))
 
+(def relative-url-pattern
+  (re-pattern (str "(?m)[uU][rR][lL]\\(" ; Matches all capitalizations of 'url('
+                   "[\"']?"              ; Matches single, double, or no quotation mark
+                   "(?!.*?:\\/\\/)"      ; Skips URLs prefixed by a protocol
+                   "([^\\/\"']"          ; Skips URLs prefixed by a slash (or quotation marks, to prevent donation)
+                   ".+?)"                ; Matches the URL string
+                   "[\"']?\\)")))        ; Matches single, double, or no quotation mark followed by ')'
+
 (defn preprocess [file-path client-path code]
   "Preprocess CSS to make it work as expected when injected."
   ; Matches a url() function containing a possibly quoted relative path. Captures just the path in group 1.
-  (let [matches (distinct (re-seq #"(?m)[uU][rR][lL]\([\"']?([^\/\"'].+?)[\"']?\)" code))]
+  (let [matches (distinct (re-seq relative-url-pattern code))]
     (process-urls (diff-paths file-path client-path) matches code)))
+
+
 
 (behavior ::on-eval
           :triggers #{:eval
@@ -77,6 +87,8 @@
                             code (if-not client-path
                                    (:code info)
                                    (preprocess (files/parent file-path) client-path (:code info)))]
+
+                        code
                         (clients/send client
                                       :editor.eval.css
                                       (assoc info :code code)
