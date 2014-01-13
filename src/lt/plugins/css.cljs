@@ -16,13 +16,6 @@
      (get-prefix (rest s1) (rest s2) (str memo (first s1)))
      memo)))
 
-;; Not currently used.
-(defn ensure-end-sep [s]
-  "If s is a directory, ensure it ends in a path separator."
-  (if (or (= (last s) files/separator) (not (files/dir? s)))
-    s
-    (str s files/separator)))
-
 ; @NOTE: Are the names source and dest backwards here?
 (defn diff-paths [source dest]
   "Create a relative path which is the difference of paths source and dest."
