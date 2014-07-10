@@ -37,9 +37,10 @@
 (behavior ::eval-on-save
           :triggers #{:save}
           :reaction (fn [editor]
-                      (when (and (-> @editor :client :default)
-                                 (not (clients/placeholder? (-> @editor :client :default))))
-                        (object/raise editor :eval))))
+                      (when-let [client (-> @editor :client :default)]
+                        (when (and @client
+                                   (not (clients/placeholder? client)))
+                          (object/raise editor :eval)))))
 
 (behavior ::eval!
           :triggers #{:eval!}
